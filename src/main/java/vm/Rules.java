@@ -3,21 +3,34 @@ import java.util.Arrays;
 import java.lang.*;
 public class Rules
 {
-	private static final String[] funcs = {"print"};
 	public static void pass(String action)
 	{
-		if(Arrays.asList(funcs).contains(determineRoot(action)))
+		if(Arrays.asList(action.toCharArray()).contains('('))
 		{
-			doAction(action);
-		}
-		else
-		{
-			System.out.println("Invalid Function");
+			parseFunc(action);
 		}
 	}
-	private static void doAction(String action)
+	private static void parseFunc(String toParse)
 	{
-		System.out.println(action);
+		System.out.println(toParse);
+	}
+	private static String determineArg(String toDetermine)
+	{
+		StringBuilder string = new StringBuilder(toDetermine);
+		int firstP = 0;
+		int secondP= 0;
+		for(int i = 0; i < string.length(); i++)
+		{
+			if(string.charAt(i) == '(')
+			{
+				firstP = i;
+			}
+			if(string.charAt(i) == ')')
+			{
+				secondP = i;
+			}
+		}
+		return string.substring(firstP+1,secondP);
 	}
 	private static String determineRoot(String toDetermine)
 	{
